@@ -75,7 +75,7 @@ public class JobCreationAndStatusUpdateActivityTest {
 
   private static final UUID CONNECTION_ID = UUID.randomUUID();
   private static final long JOB_ID = 123L;
-  private static final int ATTEMPT_ID = 321;
+  private static final int ATTEMPT_ID = 0;
   private static final StandardSyncOutput standardSyncOutput = new StandardSyncOutput()
       .withStandardSyncSummary(
           new StandardSyncSummary()
@@ -207,7 +207,7 @@ public class JobCreationAndStatusUpdateActivityTest {
       Mockito.doThrow(new IOException())
           .when(mJobPersistence).failAttempt(JOB_ID, ATTEMPT_ID);
 
-      Assertions.assertThatThrownBy(() -> jobCreationAndStatusUpdateActivity.attemptFailure(new AttemptFailureInput(JOB_ID, ATTEMPT_ID, null, null)))
+      Assertions.assertThatThrownBy(() -> jobCreationAndStatusUpdateActivity.attemptFailure(new AttemptFailureInput(JOB_ID, ATTEMPT_ID, null, failureSummary)))
           .isInstanceOf(RetryableException.class)
           .hasCauseInstanceOf(IOException.class);
     }
