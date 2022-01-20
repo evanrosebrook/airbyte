@@ -8,9 +8,10 @@ import airbyte_api_client
 import click
 from airbyte_api_client.api import workspace_api
 
+from .init import commands as init_commands
 from .list import commands as list_commands
 
-AVAILABLE_COMMANDS: List[click.Command] = [list_commands._list]
+AVAILABLE_COMMANDS: List[click.Command] = [list_commands._list, init_commands.init]
 
 
 @click.group()
@@ -36,11 +37,6 @@ def octavia(ctx: click.Context, airbyte_url: str) -> None:
 def add_commands_to_octavia():
     for command in AVAILABLE_COMMANDS:
         octavia.add_command(command)
-
-
-@octavia.command(help="Scaffolds a local project directories.")
-def init():
-    raise click.ClickException("The init command is not yet implemented.")
 
 
 @octavia.command(name="import", help="Import an existing resources from the Airbyte instance.")
