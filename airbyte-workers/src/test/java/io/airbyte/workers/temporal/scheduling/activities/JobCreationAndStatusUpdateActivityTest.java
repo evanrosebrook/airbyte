@@ -7,7 +7,7 @@ package io.airbyte.workers.temporal.scheduling.activities;
 import io.airbyte.config.AttemptFailureSummary;
 import io.airbyte.config.Configs.WorkerEnvironment;
 import io.airbyte.config.FailureReason;
-import io.airbyte.config.FailureReason.FailureSource;
+import io.airbyte.config.FailureReason.FailureOrigin;
 import io.airbyte.config.JobOutput;
 import io.airbyte.config.StandardSyncOutput;
 import io.airbyte.config.StandardSyncSummary;
@@ -86,7 +86,7 @@ public class JobCreationAndStatusUpdateActivityTest {
   private static final AttemptFailureSummary failureSummary = new AttemptFailureSummary()
       .withFailures(Collections.singletonList(
           new FailureReason()
-              .withFailureSource(FailureSource.SOURCE)));
+              .withFailureOrigin(FailureOrigin.SOURCE)));
 
   @Nested
   class Creation {
